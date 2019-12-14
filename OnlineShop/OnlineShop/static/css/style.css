@@ -353,7 +353,7 @@ mark,
 
 .list-unstyled {
   padding-left: 0;
-  list-style: none; }
+}
 
 .list-inline {
   padding-left: 0;
@@ -1586,7 +1586,6 @@ pre {
   height: calc(2.25rem + 2px);
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
-  font-weight: 400;
   line-height: 1.5;
   color: #495057;
   background-color: #fff;

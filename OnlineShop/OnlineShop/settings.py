@@ -34,9 +34,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # My apps
-    'main.apps.MainConfig',
-    'about_us.apps.AboutUsConfig',
-    'account.apps.AccountConfig',
+    'main',
+    'about_us',
+    'account',
     'widget_tweaks',
 
     # Django apps
