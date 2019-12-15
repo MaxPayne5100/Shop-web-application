@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'about_us',
     'account',
     'shop',
+    'shopping_cart',
 
     # Installed apps
     'widget_tweaks',

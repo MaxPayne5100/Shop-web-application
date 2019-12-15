@@ -28,4 +28,5 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('shop/', products_view, name='shop'),
+    path('shopping_cart/', include('shopping_cart.urls')),
 ]
