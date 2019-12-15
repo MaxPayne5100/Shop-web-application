@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'main',
     'about_us',
     'account',
+    'shop',
 
     # Installed apps
     'widget_tweaks',
