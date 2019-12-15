@@ -28,8 +28,16 @@
                         <p>or sign up with:</p>
 
                         <ul class="ftco-footer-social list-unstyled">
-                            <li class="ftco-animate"><a href="#"><span class="icon-facebook-official"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-google"></span></a></li>
+                            <li class="ftco-animate">
+                                <a href="{% url 'social:begin' 'facebook' %}">
+                                    <span class="icon-facebook-official"></span>
+                                </a>
+                            </li>
+                            <li class="ftco-animate">
+                                <a href="{% url 'social:begin' 'google-oauth2' %}">
+                                    <span class="icon-google"></span>
+                                </a>
+                            </li>
                         </ul>
 
                         <hr>

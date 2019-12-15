@@ -233,3 +233,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/django,pycharm,windows
+
+#Additional ignore
+**/tmp
+.env
