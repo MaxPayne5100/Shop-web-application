@@ -19,6 +19,9 @@ from django.urls import path, include
 from account.views import sign_in_view, register_view, logout_view
 from shop.views import products_view
 
+from django.contrib.staticfiles.urls import static
+from django.conf import settings
+
 urlpatterns = [
     path('', include('main.urls')),
     path('admin/', admin.site.urls),
@@ -30,3 +33,7 @@ urlpatterns = [
     path('shop/', products_view, name='shop'),
     path('shopping_cart/', include('shopping_cart.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

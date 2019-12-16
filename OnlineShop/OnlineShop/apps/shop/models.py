@@ -19,9 +19,10 @@ class Product(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    discount = models.PositiveSmallIntegerField(default=0)
+    discount = models.PositiveSmallIntegerField(default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(100)])
     rating = models.FloatField(
-        validators=[MinValueValidator(1.0), MaxValueValidator(5.0)],
+        validators=[MinValueValidator(1.0), MaxValueValidator(5.0)]
     )
 
     def __str__(self):
