@@ -52,7 +52,7 @@
 	    			{% for product_elem in object_list  %}
 	    			<div class="col-md-6 col-lg-3 ftco-animate">
 	    				<div class="product">
-	    					<a href="#" class="img-prod">
+	    					<a href="{{ product_elem.get_absolute_url }}" class="img-prod">
                                 <img class="img-fluid" src="{{ product_elem.image.url }}" alt="{{ product_elem.title }}">
                                 {% if product_elem.discount %}
                                 <span class="status">{{ product_elem.discount }}%</span>
@@ -60,7 +60,7 @@
 	    						<div class="overlay"></div>
 	    					</a>
 	    					<div class="text py-3 pb-4 px-3 text-center">
-	    						<h3><a href="#">{{ product_elem.title }}</a></h3>
+	    						<h3><a href="{{ product_elem.get_absolute_url }}">{{ product_elem.title }}</a></h3>
 	    						<div class="d-flex">
 	    							<div class="pricing">
 			    						<p class="price">

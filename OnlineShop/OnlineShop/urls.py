@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from account.views import sign_in_view, register_view, logout_view
-from shop.views import products_view, shop_view
+from shop.views import products_view, shop_view, product_view
 
 from django.contrib.staticfiles.urls import static
 from django.conf import settings
@@ -32,6 +32,7 @@ urlpatterns = [
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('shop/', shop_view.as_view(), name='shop'),
     path('shopping_cart/', include('shopping_cart.urls')),
+    path('product/<slug>/', product_view.as_view(), name='product'),
 ]
 
 if settings.DEBUG:

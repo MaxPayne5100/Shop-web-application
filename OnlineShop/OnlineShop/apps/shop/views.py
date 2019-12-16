@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from .models import Product
+from django.views.generic.detail import DetailView
+from .models import Product, Review
 
 # Create your views here.
 
@@ -11,7 +12,7 @@ def products_view(request):
 
 class shop_view(ListView):
     model = Product
-    paginate_by = 4
+    paginate_by = 8
     template_name = 'shop.html'
 
     def get_queryset(self):
@@ -38,4 +39,16 @@ class shop_view(ListView):
             ('rating', 'Rating')
         ]
         context['current_sort_order'] = self.request.GET.get('orderby', 'title')
+        return context
+
+class product_view(DetailView):
+    model = Product
+    template_name = 'product.html'
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+
+        context['reviews'] = Review.objects.filter(product=self.object)
         return context

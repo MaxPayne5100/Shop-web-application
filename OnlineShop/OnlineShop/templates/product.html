@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Product{% endblock %}
+
+{% block content %}
+	<section class="ftco-section">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-lg-6 mb-5 ftco-animate">
+    				<a href="{{ product.image.url }}" class="image-popup"><img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.title }}"></a>
+    			</div>
+    			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+    				<h3>{{ product.title }} 
+    					<span class="btn btn-danger py-1 px-2 ml-2 text-lowercase" style="cursor: auto">{{ product.category }}</span>
+    				</h3>
+    				<div class="rating d-flex">
+							<p class="text-left mr-4">
+								<a href="#" class="mr-2">5.0</a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+							</p>
+							<p class="text-left mr-4">
+								<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
+							</p>
+							<p class="text-left">
+								<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
+							</p>
+						</div>
+					<div class="d-flex">
+						<div class="pricing">
+    						<p class="price">
+				                {% if product.final_price != product.price %}
+    							<span class="mr-2 price-dc" style="text-decoration: line-through">${{ product.price }}</span>
+    							{% endif %}
+    							<span class="price-sale">${{ product.final_price }}</span>
+    						</p>
+    					</div>
+					</div>
+    				<p>{{ product.description }}</p>
+					<div class="row mt-4">
+							<div class="input-group col-md-6 d-flex mb-3">
+				             	<span class="input-group-btn mr-2">
+				                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
+				                   <i class="ion-ios-remove"></i>
+				                	</button>
+				            		</span>
+				             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+				             	<span class="input-group-btn ml-2">
+				                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+				                     <i class="ion-ios-add"></i>
+				                 </button>
+				             	</span>
+	          				</div>
+				          	<div class="col-md-12">
+				          		<p style="color: #000;">50 kg available</p>
+				          	</div>
+          			</div>
+      				<p><a href="#" class="btn btn-black py-1 px-4">Add to Cart</a></p>
+    			</div>
+    		</div>
+
+    		<hr>
+    		<br>
+
+    		<div class="row bootstrap snippets">
+                <div class="col-12">
+                    <div class="comment-wrapper">
+                        <div class="panel panel-info">
+                            <div class="panel-body">
+                                <textarea class="form-control" style="font-size: 16px" placeholder="Write a review..." rows="3"></textarea>
+                                <br>
+                                <a href="#" class="btn btn-black py-1 px-4">Post</a>
+                                {% if reviews %}
+                                <hr>
+                                <ul class="media-list mt-4">
+                                    {% for review in reviews %}
+                                    <li class="media">
+                                        <a href="#" class="mr-3">
+                                            <img src="{% static 'images/person_3.jpg' %}" alt="user" width="60" height="60">
+                                        </a>
+                                        <div class="media-body" style="font-size: 14px">
+                                            <span class="text-muted">
+                                                <small class="text-muted">{{ review.date }}</small>
+                                            </span>
+                                            <span class="text-danger">{{ review.user.username }}</span>
+                                            <p>
+                                                {{ review.message }}
+                                            </p>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    	</div>
+    </section>
+{% endblock content %}
