@@ -18,12 +18,17 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products', null=True, blank=True)
     title = models.CharField(max_length=150)
     description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(0)])
     discount = models.PositiveSmallIntegerField(default=0,
         validators=[MinValueValidator(0), MaxValueValidator(100)])
     rating = models.FloatField(
         validators=[MinValueValidator(1.0), MaxValueValidator(5.0)]
     )
+    final_price = models.DecimalField(max_digits=8, decimal_places=2, default=0, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.final_price = self.price - self.price * self.discount / 100
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

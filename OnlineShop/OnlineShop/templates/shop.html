@@ -19,32 +19,56 @@
 		<!--Products section-->
 	    <section class="ftco-section">
 	    	<div class="container">
-				<!--Categories-->
+				<!-- Toolbar-->
 	    		<div class="row justify-content-center">
 	    			<div class="col-md-10 mb-5 text-center">
 	    				<ul class="product-category">
-	    					<li><a href="#" class="active">All</a></li>
-	    					<li><a href="#">Vegetables</a></li>
-	    					<li><a href="#">Fruits</a></li>
-	    					<li><a href="#">Juice</a></li>
-	    					<li><a href="#">Dried</a></li>
+							{% for category in categories %}
+		                        {% if category.0 == current_category %}
+		                            <li><a href="?category={{ category.0 }}" class="active">{{ category.1 }}</a></li>
+		                        {% else %}
+		                            <li><a href="?category={{ category.0 }}">{{ category.1 }}</a></li>
+		                        {% endif %}
+	                    	{% endfor %}
+				            <li class="btn-group">
+				                <button class="btn dropdown-toggle text-white" style="background-color: #82AE46" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				                    Sort
+				                </button>
+				                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				                    {% for sort_order in sort_orders %}
+				                        {% if sort_order.0 == current_sort_order %}
+				                            <a class="dropdown-item active" href="?orderby={{ sort_order.0 }}">{{ sort_order.1 }}</a>
+				                        {% else %}
+				                            <a class="dropdown-item" href="?orderby={{ sort_order.0 }}">{{ sort_order.1 }}</a>
+				                        {% endif %}
+				                    {% endfor %}
+				                </div>
+				            </li>	    					
 	    				</ul>
 	    			</div>
 	    		</div>
 				<!--Products-->
 	    		<div class="row">
-	    			{% for product_elem in products %}
+	    			{% for product_elem in object_list  %}
 	    			<div class="col-md-6 col-lg-3 ftco-animate">
 	    				<div class="product">
 	    					<a href="#" class="img-prod">
                                 <img class="img-fluid" src="{{ product_elem.image.url }}" alt="{{ product_elem.title }}">
+                                {% if product_elem.discount %}
+                                <span class="status">{{ product_elem.discount }}%</span>
+      							{% endif %}
 	    						<div class="overlay"></div>
 	    					</a>
 	    					<div class="text py-3 pb-4 px-3 text-center">
 	    						<h3><a href="#">{{ product_elem.title }}</a></h3>
 	    						<div class="d-flex">
 	    							<div class="pricing">
-			    						<p class="price"><span class="price-sale">${{ product_elem.price }}</span></p>
+			    						<p class="price">
+							                {% if product_elem.final_price != product_elem.price %}
+			    							<span class="mr-2 price-dc">${{ product_elem.price }}</span>
+			    							{% endif %}
+			    							<span class="price-sale">${{ product_elem.final_price }}</span>
+			    						</p>
 			    					</div>
 		    					</div>
 		    					{% if request.user.is_authenticated %}
@@ -62,21 +86,43 @@
 	    			{% endfor %}
 	    		</div>
 	    		<!--Pagination-->
+	    		{% if is_paginated %}
 	    		<div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
 		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
-		              </ul>
-		            </div>
-		          </div>
-	        	</div>
+                        {% if page_obj.has_previous %}
+                        	<li>
+                        		<a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">&lt;</a>
+                        	</li>
+                        {% endif %}
+
+                        {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                            	<li class="active">
+                            		<a href="?page={{ i }}">
+                            			<span>{{ i }}</span>
+                            		</a>
+                            	</li>
+                            {% else %}
+                                <li>
+                                    <a href="?page={{ i }}">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        	<li>
+                        		<a href="?page={{ page_obj.next_page_number }}" aria-label="Next">&gt;</a>
+                        	</li>
+                        {% endif %}
+                   	  </ul>
+	            	</div>
+	          	  </div>
+	          	</div>
+            	{% endif %}
 	    	</div>
 	    </section>
     </main>
