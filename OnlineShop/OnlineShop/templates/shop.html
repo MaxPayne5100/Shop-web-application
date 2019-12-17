@@ -4,7 +4,7 @@
 {% block title %}Shop{% endblock %}
 
 {% block content %}
-    <main class="mb-3">
+    <main class="mb-3">        
 		<!--Hero section-->
 	    <div class="hero-wrap hero-bread" style="background-image: url('../static/images/bg_1.jpg');">
 	      <div class="container">
@@ -74,7 +74,7 @@
 		    					{% if request.user.is_authenticated %}
 		    					<div class="bottom-area d-flex">
 		    						<div class="m-auto d-flex">
-		    							<a href="{% url 'shopping_cart' %}" class="buy-now d-flex justify-content-center align-items-center">
+		    							<a href="{{ product_elem.add_to_cart_url }}" class="buy-now d-flex justify-content-center align-items-center">
 		    								<span><i class="ion-ios-cart"></i></span>
 		    							</a>
 	    							</div>

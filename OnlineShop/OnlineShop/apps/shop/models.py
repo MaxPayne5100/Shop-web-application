@@ -31,6 +31,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product', kwargs={'slug' : self.slug})
 
+    def add_to_cart_url(self):
+        return reverse('add_to_cart', kwargs={'slug': self.slug})
+
     def save(self, *args, **kwargs):
         self.final_price = self.price - self.price * self.discount / 100
         super().save(*args, **kwargs)
@@ -51,7 +54,7 @@ class Order(models.Model):
         return self.user.email
 
 
-class ProductOrderTable(models.Model):
+class OrderProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     order = models.ForeignKey('Order', on_delete=models.CASCADE)
